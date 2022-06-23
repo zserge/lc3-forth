@@ -1,12 +1,15 @@
 : dup ( x -- x x ) sp@ @ ;
 
+: -1 ( x -- x -1 ) dup dup nand dup dup nand nand ;
+: 0 -1 dup nand ;
+: 1 -1 dup + dup nand ;
+
 : invert ( x -- !x ) dup nand ;
 : and ( x y -- x&y ) nand invert ;
 : negate ( x -- -x ) invert 1 + ;
 : - ( x y -- x-y ) negate + ;
 
 ( numbers )
-: 0 1 1 - ;
 : 2 1 1 + ;
 : 3 2 1 + ;
 : 4 2 2 + ;
@@ -229,8 +232,6 @@ variable base
 : digit ( x -- c ) dup 10 < if [char] 0 + else 10 - [char] A + then ;
 
 : ?dup dup ?branch [ 2 , ] dup ;
-
-: -1 lit [ 0 1 - , ] ;
 
 \ print number at the top of the stack in current base
 : . ( x -- )
